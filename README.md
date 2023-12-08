@@ -48,7 +48,7 @@ example is the modulus linear form. The modulus linear form is a separate
 module, which is a basic building block that can be used to create ZKPs.
 
 The ZKP library is based on Thomas Attema's dissertation Compressed
-$`\Sigma`$-protocol Theory, which can be found
+$\Sigma$-protocol Theory, which can be found
 [here](https://scholarlypublications.universiteitleiden.nl/handle/1887/3619596).
 Many concepts are taken from it, and there will be references throughout the
 code to the dissertation. In this README the crucial concepts from the
@@ -70,14 +70,14 @@ distributed ledger are common.
 
 A homomorphism is a fundamental building block of the ZKP. The homomorphism
 evaluates a function on a vector of input elements. A homomorphism is
-represented in the literature as $`\psi_n`$, where $`n`$ is the length of the
-input vector.
+represented in the literature as $\psi_n$, where $n$ is the length of the input
+vector.
 
-The homomorphism maps the input vector from an abelian group $`\mathbb{G}^n`$ to
-a single element of another group $`\mathbb{H}`$. In particular the original
-domain and target image groups can have different group operators. In the
-dissertation a mapping is made from an additive group $`\mathbb{G}`$ to a
-multiplicative group $`\mathbb{H}`$.
+The homomorphism maps the input vector from an abelian group $\mathbb{G}^n$ to a
+single element of another group $\mathbb{H}$. In particular the original domain
+and target image groups can have different group operators. In the dissertation
+a mapping is made from an additive group $\mathbb{G}$ to a multiplicative group
+$\mathbb{H}$.
 
 #### Sigma Protocol
 
@@ -89,11 +89,11 @@ The three steps are shown in the sequence diagram below. Each step is explained
 in this section.
 
 <figure>
-  <img src="raw.githubusercontent.com/TNO-ZKP/templates/main/assets/BasicSigmaProtocol.png" width=100% alt="Basic sigma Protocol high level overview"/>
+  <img src="https://raw.githubusercontent.com/TNO-ZKP/templates/main/assets/BasicSigmaProtocol.png" width=100% alt="Basic sigma Protocol high level overview"/>
   <figcaption>
 
 **Figure 1.** _Two parties exchange information in which the Prover wants to
-convince the Verifier that he knows secret input $`x`$ without revealing $`x`$._
+convince the Verifier that he knows secret input $x$ without revealing $x$._
 
   </figcaption>
 </figure>
@@ -103,27 +103,27 @@ convince the Verifier that he knows secret input $`x`$ without revealing $`x`$._
 Before starting a sigma protocol certain pieces of information are calculated.
 The information consists of the following:
 
-- **Private input**: $`x`$ secret of the prover
-- **Public input**: $`P`$ and the homomorphism
-  $`\psi \in \texttt{Hom}(\mathbb{G}^n,\mathbb{H})`$
-- **Prover's claim**: $`P=\psi(x)`$
+- **Private input**: $x$ secret of the prover
+- **Public input**: $P$ and the homomorphism
+  $\psi \in \texttt{Hom}(\mathbb{G}^n,\mathbb{H})$
+- **Prover's claim**: $P=\psi(x)$
 
 ##### First step
 
 In the first a commitment is made by the prover. The commitment is made by
-generating a random input $`r$. The random input $r`$ is evaluated by the
-homomorphism $`\psi$ giving $A$. $A`$ is the commitment sent to the verifier.
+generating a random input $r$. The random input $r$ is evaluated by the
+homomorphism $\psi$ giving $A$. $A$ is the commitment sent to the verifier.
 
 ##### Second step
 
-The verifier sends a challenge $`c`$ to the prover. The challenge is a single
+The verifier sends a challenge $c$ to the prover. The challenge is a single
 element (as opposed to a vector). The challenge needs to be able to do the
 following operations:
 
 - Multiply with homomorphism input, which is a vector of elements from group
-  $`\mathbb{G}`$. This operation is needed to create the response mentioned in
-  the third step.
-- Take to the power of the resulting group $`\mathbb{H}`$. This operation is
+  $\mathbb{G}$. This operation is needed to create the response mentioned in the
+  third step.
+- Take to the power of the resulting group $\mathbb{H}$. This operation is
   needed to verify the proof.
 
 In this library the homomorphism maps input from additive group operation to a
@@ -133,13 +133,13 @@ implementation different operations might be needed.
 ##### Third step
 
 Create the response by calculating a new input for the homomorphism. The input
-is based on $`r`$, the challenge $`c`$ and the secret input $`x`$. The response
-is calculated as follows: $`z=r+cx`$.
+is based on $r$, the challenge $c$ and the secret input $x$. The response is
+calculated as follows: $z=r+cx$.
 
 ##### Verification
 
-The verifier can now check the proof of knowledge by testing if $`\psi(z)`$ is
-equal to $`A\cdot P^c`$.
+The verifier can now check the proof of knowledge by testing if $\psi(z)$ is
+equal to $A\cdot P^c$.
 
 ##### Making it non-interactive
 
@@ -171,8 +171,8 @@ included in this package. The `ModulusLinearForm` implements the `Homomorphism`
 object and is located in the namespace `tno.zkp.modulus_linear_form`.
 
 In the code snippet below we create a `ModulusLinearForm` corresponding to the
-following formula $`1\cdot x_1 + 2\cdot x_2 + 3 \cdot x_3`$ with the modulus
-$`13`$. The secret input is a random input generated by the homomorphism.
+following formula $1\cdot x_1 + 2\cdot x_2 + 3 \cdot x_3$ with the modulus $13$.
+The secret input is a random input generated by the homomorphism.
 
 Generating the proof of knowledge is relatively straight forward. You call the
 method `generate_proof` with the homomorphism, the secret input and the hash
@@ -220,7 +220,7 @@ compressed_protocol = full_compression(proof_of_knowledge)
 assert compressed_protocol.verify()
 ```
 
-The function `full_compression` reduces the ZKP from length $`n`$ until it can
-not be compressed anymore, which is a length of 1. The function used for the
+The function `full_compression` reduces the ZKP from length $n$ until it can not
+be compressed anymore, which is a length of 1. The function used for the
 compression is called `compression` and is available to the user as well. The
 `compression` function halves the length of the ZKP.

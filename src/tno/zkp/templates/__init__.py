@@ -28,4 +28,4 @@ __all__ = [
     "compression",
     "full_compression",
 ]
-__version__ = "0.1.1"
+__version__ = "0.1.1.post1"
